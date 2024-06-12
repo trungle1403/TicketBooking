@@ -1,0 +1,50 @@
+﻿@model QLNX.Models.SigninModel
+@{
+    Layout = null;
+
+}
+<link href="~/Assets/User/Css/styleLogin.css" rel="stylesheet" />
+<div style="margin-top:150px;min-height:500px;" class="login-box">
+    <div class="lb-header">
+        <a href="javascript:void(0)" class="active" id="signup-box-link">Đăng ký</a>
+    </div>
+    @*<div class="social-login">
+            <a href="#">
+                <i class="fa fa-facebook fa-lg"></i>
+                Login in with facebook
+            </a>
+            <a href="#">
+                <i class="fa fa-google-plus fa-lg"></i>
+                log in with Google
+            </a>
+        </div>*@
+    <form  action="/Login/Signin" method="post" class="email-signup">
+        <div class="u-form-group">
+            <input id="HOTEN" type="text" placeholder="Nhập họ tên" name="HOTEN" />
+        </div>
+        <div class="u-form-group">
+            <input id="SDTDK" type="text" placeholder="Nhập số điện thoại" name="SDT" />
+        </div>
+        <div class="u-form-group">
+            <input id="MAIL" type="email" placeholder="Nhập email" name="EMAIL" />
+        </div>
+        <div class="u-form-group">
+            <input id="MKDK" type="password" placeholder="Nhập mật khẩu" name="MATKHAU" />
+        </div>
+        <div class="u-form-group">
+            <input id="MKXN" type="password" placeholder="Nhập lại mật khẩu" name="MATKHAUCONFIRM" />
+        </div>
+        <div class="u-form-group">
+            <button id="btnSignin" style="cursor:pointer;" type="submit">Đăng ký</button>
+        </div>
+        <div class="u-form-group">
+            <a style="font-size:14px;" href="/dang-nhap" class="forgot-password">Đăng nhập</a>
+        </div>
+    </form>
+</div>
+
+<script src="~/Assets/User/Js/bootstrap.min.js"></script>
+<script src="~/Assets/User/Js/jquery.min.js"></script>
+<script src="~/Assets/User/Js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

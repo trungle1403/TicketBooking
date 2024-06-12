@@ -1,0 +1,46 @@
+﻿@model List<QLNX.Models.MyBookingModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int num = 1;
+}
+
+<div style="min-height:70vh;" class="container">
+    <div style="margin-top:20px;margin-bottom:20px;" class="row">
+        <div class="col-lg-12">
+            <h5 style="background: cadetblue;color: white; display: block; padding: 10px; font-size: 17px;">Vé của tôi</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tuyến - Ngày - Giờ</th>
+                        <th scope="col">Ngày đặt vé</th>
+                        <th scope="col">Tên ghế</th>
+                        <th scope="col">Giá vé</th>
+                        <th scope="col">PT thanh toán</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var item in Model)
+                    {
+                        
+                        <tr>
+                            <td>@num</td>
+                            <td>@item.DIADIEMDI - @item.DIADIEMDEN <br /> @string.Format("{0:dd/MM/yyyy}", @item.NGAYKHOIHANH) <br /> @item.GIOCHAY</td>
+                            <td>@item.NGAYDATVE</td>
+                            <td>@item.TENGHE</td>
+                            <td>@String.Format("{0:n0}", @item.THANHTIEN)VND </td>
+                            <td>@item.PTTHANHTOAN</td>
+                        </tr>
+                        num++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model List<QLNX.Areas.Admin.Models.DonHangModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #trTable th{
+        text-align:center;
+        vertical-align:middle;
+    }
+</style>
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+         <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Đơn hàng</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr id="trTable">
+                            <th>Họ tên</th>
+                            <th>Số điện thoại</th>
+                            <th style="width:150px;text-align:left;">Điểm đi - Điểm đến <br />Ngày khởi hành <br />Giờ chạy</th>
+                            <th>Ngày đặt</th>
+                            <th>Tên ghế</th>
+                            <th>Giá vé</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>Tình trạng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.HOTENKH</td>
+                                <td>@item.SDTKH</td>
+                                <td>@item.DIADIEMDI - @item.DIADIEMDEN <br />@string.Format("{0:dd/MM/yyyy}", @item.NGAYKHOIHANH) <br />@item.GIOCHAY</td>
+                                <td>@item.NGAYDATVE</td>
+                                <td>@item.TENGHE</td>
+                                <td>@String.Format("{0:n0}", @item.THANHTIEN)VND </td>
+                                <td>@item.PTTHANHTOAN</td>
+                                <td>
+                                @if(@item.TRANGTHAIPHOI == "Ghế đã đặt")
+                                {
+                                   <b>Đã thanh toán</b>
+                                }
+                                else if (@item.TRANGTHAIPHOI == "Đã hủy")
+                                {
+                                    <b>Đã hủy vé</b>
+                                }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+

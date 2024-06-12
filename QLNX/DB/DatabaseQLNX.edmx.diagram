@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a3fea8684a2a4d3eba5af85ea78538f6" Name="Diagram1">
+        <EntityTypeShape EntityType="quanlynhaxeModel.GHE" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlynhaxeModel.KHACHHANG" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlynhaxeModel.LICHCHAY" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlynhaxeModel.NHANVIEN" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlynhaxeModel.PHOIXE" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlynhaxeModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlynhaxeModel.TUYENDUONG" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlynhaxeModel.TRAM" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlynhaxeModel.XE" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="quanlynhaxeModel.FK_GHE_TREN_XE" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlynhaxeModel.FK_KH_DAT_VE" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlynhaxeModel.FK_PHOIXE_TAO_LICHCHAY" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlynhaxeModel.FK_NHANVIEN_XE" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlynhaxeModel.FK_PHOIXE_CHAY_TUYENDUO" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlynhaxeModel.FK_TRAM_THUOC_TUYENDUO" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlynhaxeModel.CHITIETGHE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

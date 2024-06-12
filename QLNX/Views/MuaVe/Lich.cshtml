@@ -1,0 +1,101 @@
+﻿@model List<QLNX.Models.ChonXeModel>
+@{
+    ViewBag.Title = "MuaVe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!--========================= PAGE-COVER ======================-->
+<section class="page-cover back-size" id="cover-flight-grid-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="breadcrumb">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li class="active">Chọn xe</li>
+                </ul>
+            </div><!-- end columns -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end page-cover -->
+
+<!--===== INNERPAGE-WRAPPER ====-->
+<section class="innerpage-wrapper">
+    <div id="flight-listings" class="innerpage-section-padding">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-12 col-md-3 side-bar left-side-bar">
+
+                    <div class="side-bar-block filter-block">
+                        <h3>Chuyến xe</h3>
+
+                        <div class="panels-group">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="form-control">@ViewBag.ngay</h4>
+                                </div><!-- end panel-heading -->
+                            </div><!-- end panel-default -->
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    @*@Html.DropDownListFor(Model => Model.DIADIEMDI, ViewBag.listDiaDiem as SelectList, " Địa điểm đi", new { @class = "form-control selectpicker" })*@
+                                    <h4 class="form-control">@Session["diemdi"]</h4>
+                                    @*<input class="form-control" style="font-size:20px;" type="text" name="DIADIEMDI" value="@Request.QueryString.Get("DIADIEMDI")" />*@
+                                </div><!-- end panel-heading -->
+                            </div><!-- end panel-default -->
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="form-control">@Session["diemden"]</h4>
+                                    @*<input class="form-control" style="font-size:20px;" type="text" name="DIADIEMDEN" value="@Request.QueryString.Get("DIADIEMDEN")" />*@
+                                </div><!-- end panel-heading -->
+                            </div><!-- end panel-default -->
+
+                        </div><!-- end panel-group -->
+
+                    </div><!-- end side-bar-block -->
+
+                </div><!-- end columns -->
+
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 content-side">
+                @foreach (var item in Model)
+                {
+                    <div class="list-block main-block crs-list-block">
+                        <div class="list-content">
+                            <div class="main-img list-img crs-list-img">
+                                <a href="/dat-ve/@item.MALICH">
+                                    <img src="~/@item.HINHANH" class="img-responsive" />
+                                </a>
+                                <div class="main-mask">
+                                    <ul class="list-unstyled list-inline offer-price-1">
+                                        <li style="color:white;" class="">Giờ: <span style="color:cornflowerblue;font-size:20px;">@item.GIOCHAY</span></li>
+                                        <li class="price">@item.GIAVE.ToString("N0")<span style="font-size:17px;">VND</span><span class="divider">|</span><span class="pkg">@item.SOGHE chỗ</span></li>
+                                    </ul>
+                                </div><!-- end main-mask -->
+                            </div><!-- end crs-list-img -->
+
+                            <div class="list-info crs-list-info">
+                                <h3 class="block-title">@item.DIADIEMDI - @item.DIADIEMDEN</h3>
+                                <p class="block-minor"><b>Thời gian chạy: </b> @item.THOIGIANCHAY</p>
+                                <p class="block-minor"><b>Độ dài: </b> @item.DODAI</p>
+                                <a href="/dat-ve/@item.MALICH" class="btn btn-orange">Đặt vé</a>
+                                @*<a href="/MuaVe/DatVe/@item.MALICH" class="btn btn-orange">Đặt vé</a>*@
+                                @*@Html.ActionLink("Đặt vé", "DatVe", new { id = item.MALICH })*@
+                                
+                            </div><!-- end crs-list-info -->
+                        </div><!-- end list-content -->
+                    </div><!-- end crs-list-block -->
+                }
+                @if (Convert.ToInt32(Session["solich"]) == 0)
+                {
+                    <h5 class="alert alert-info">Không có chuyến nào vào ngày này!!!</h5>
+                }
+                </div><!-- end columns -->
+                <!-- Content right -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end flight-listings -->
+</section><!-- end innerpage-wrapper -->
+

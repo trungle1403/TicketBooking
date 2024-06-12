@@ -1,0 +1,32 @@
+﻿@model QLNX.Models.LoginModel
+@{
+    Layout = null;
+
+}
+<link href="~/Assets/User/Css/styleLogin.css" rel="stylesheet" />
+<div style="margin-top:150px;" class="login-box">
+    
+    <div class="lb-header">
+        <a href="javascript:void(0)" class="active" id="login-box-link">Đăng nhập</a>
+    </div>
+    <form action="" method="post" class="email-login">
+        <div class="u-form-group">
+            <input id="SDTDN" type="text" placeholder="Số điện thoại" name="SDT" />
+        </div>
+        <div class="u-form-group">
+            <input id="MKDN" type="password" placeholder="Mật khẩu" name="MATKHAU" />
+        </div>
+        <div class="u-form-group">
+            <button id="btnLogin" style="cursor:pointer;" type="submit">Đăng nhập</button>
+        </div>
+        <div class="u-form-group">
+          Chưa có tài khoản?   <a style="font-size:14px;" href="/dang-ky" class="forgot-password">Đăng ký</a>
+        </div>
+    </form>
+</div>
+
+<script src="~/Assets/User/Js/bootstrap.min.js"></script>
+<script src="~/Assets/User/Js/jquery.min.js"></script>
+<script src="~/Assets/User/Js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

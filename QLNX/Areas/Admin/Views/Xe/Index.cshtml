@@ -1,0 +1,223 @@
+﻿@model QLNX.Areas.Admin.Models.XeModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+    .middle{
+        display:flex;
+    }
+</style>*@
+
+<script src="~/Assets/User/Js/jquery.min.js"></script>
+<script src="~/Assets/Admin/Js/main.js"></script>
+<div class="container" style="margin-top:3%">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-6"><h6 class="m-0 font-weight-bold text-primary">Quản lý xe</h6></div>
+                <div style="text-align:right;" class="col-md-6">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="AddXe(0)" data-bs-target="#myModal">Thêm xe mới</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr id="trTable">
+                            <th>Tên xe</th>
+                            <th>Số ghế</th>
+                            <th>Giá vé</th>
+                            <th>Hãng xe</th>
+                            <th>Biển xe</th>
+                            <th>Trạng thái</th>
+                            <th>Tài xế</th>
+                            <th style="text-align:center;width:70px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="SetXeList"></tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalTitle"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form">
+                                <fieldset id="SubmitForm">
+                                    @Html.HiddenFor(m => m.MAXE, new { @id = "MAXE" })
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.TENXE, new { @id = "TENXE", @class = "form-control", @placeholder = "Nhập tên xe" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.SOGHE, ViewBag.listSoghe as SelectList, null, new { @id = "SOGHE", @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.GIAVE, new { @id = "GIAVE", @class = "form-control", @placeholder = "Nhập giá vé" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.HANGXE, new { @id = "HANGXE", @class = "form-control", @placeholder = "Nhập hãng xe" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.BIENXE, new { @id = "BIENXE", @class = "form-control", @placeholder = "Nhập biển xe" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.TRANGTHAIXE, ViewBag.listTrangThai as SelectList, null, new { @id = "TRANGTHAIXE", @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.MANV, ViewBag.listNhanvien as SelectList, "--Chọn tài xế--", new { @id = "MANV", @class = "form-control" })
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="SaveRecord">Lưu thông tin</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="modal fade" id="DeleteConfirmation" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Xóa xe</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="text text-danger">Bạn có chắc muốn xóa xe này ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Xóa</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            @*<script src="~/Assets/Admin/Css/bootstrap/js/bootstrap.min.js"></script>*@
+ <script>
+
+    //$("#LoadingStatus").html("Loading....");
+    $.get("/Xe/GetXeList", null, DataBind);
+    function DataBind(Xe) {
+        var SetData = $("#SetXeList");
+        for (var i = 0; i < Xe.length; i++) {
+            var Data = "<tr class='row_" + Xe[i].MAXE + "'>" +
+                "<td>" + Xe[i].TENXE + "</td>" +
+                "<td>" + Xe[i].SOGHE + "</td>" +
+                "<td>" + Xe[i].GIAVE + "</td>" +
+                "<td>" + Xe[i].HANGXE + "</td>" +
+                "<td>" + Xe[i].BIENXE + "</td>" +
+                "<td>" + Xe[i].TRANGTHAIXE + "</td>" +
+                "<td>" + Xe[i].HOTENNV + "</td>" +
+                "<td>" + "<a style='margin-right:5px;padding: 5px 10px;' href='javascript:void(0)' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#myModal' onclick='EditRecord(" + Xe[i].MAXE + ")' ><i class='fa fa-pen'></i></a>"
+                       + "<a style='padding: 5px 10px;' href='javascript:void(0)' class='btn btn-danger' onclick='DeleteRecord(" + Xe[i].MAXE + ")'><i class='fa fa-trash'></i> </a>" + "</td>" +
+                "</tr>";
+            SetData.append(Data);
+            $("#LoadingStatus").html(" ");
+
+        }
+    }
+
+    //Show The Popup Modal For Add New Student
+
+    function AddXe(MAXE) {
+        $("#form")[0].reset();
+        $("#MAXE").val(0);
+       // $("#CHUCVU option:selected").text("--Chọn chức vụ--");
+        //$("#TRANGTHAINV option:selected").text("--Chọn trạng thái--");
+        $("#ModalTitle").html("Thêm xe mới");
+        $("#myModal").modal();
+
+    }
+
+    //Show The Popup Modal For Edit Student Record
+
+    function EditRecord(MAXE) {
+        $("#ModalTitle").html("Cập nhật xe");
+        $("#myModal").modal();
+        $.ajax({
+            type: "GET",
+            url: "/Xe/GetXeById?id=" + MAXE,
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (obj) {
+                $("#MAXE").val(obj.MAXE);
+                $("#TENXE").val(obj.TENXE);
+                $("#SOGHE option:selected").text(obj.SOGHE);
+                $("#SOGHE option:selected").val(obj.SOGHE);
+                $("#GIAVE").val(obj.GIAVE);
+                $("#HANGXE").val(obj.HANGXE);
+                $("#BIENXE").val(obj.BIENXE);
+                $("#TRANGTHAIXE option:selected").text(obj.TRANGTHAIXE);
+                $("#TRANGTHAIXE option:selected").val(obj.TRANGTHAIXE);
+                $("#MANV option:selected").text(obj.NHANVIEN.HOTENNV);
+                $("#MANV option:selected").val(obj.MANV);
+
+
+            }
+        })
+    }
+
+    $("#SaveRecord").click(function () {
+        var data = $("#SubmitForm").serialize();
+        if ($("#TENXE").val() == "") {
+            showAlertSmall('Chưa nhập tên xe!!!')
+        }
+        else if ($("#SOGHE").val() == "") {
+            showAlertSmall('Chưa chọn số ghế!!!')
+        }
+        else if ($("#GIAVE").val() == "") {
+            showAlertSmall('Chưa nhập giá vé!!!')
+        }
+        else if ($("#MANV").val() == "") {
+            showAlertSmall('Chưa chọn tài xế!!!')
+        } else {
+            $.ajax({
+                type: "get",
+                url: "/Xe/SaveDataInDatabase",
+                data: data,
+
+                success: function (result) {
+                    showAlertSuccess(result.alert);
+                    setTimeout(function () {
+                        window.location.href = "/Admin/quan-ly-xe";
+                    },2000)
+                    $("#myModal").modal("hide");
+                }
+            })
+
+        }
+    })
+
+    //Show The Popup Modal For DeleteComfirmation
+    var DeleteRecord = function (MAXE) {
+        $("#MAXE").val(MAXE);
+        $("#DeleteConfirmation").modal("show");
+    }
+    var ConfirmDelete = function () {
+        var MAXE = $("#MAXE").val();
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Xe/DeleteRecord?id=" + MAXE,
+            success: function (result) {
+                $("#DeleteConfirmation").modal("hide");
+                $(".row_" + MAXE).remove();
+            }
+        })
+    }
+            </script>
+

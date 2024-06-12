@@ -1,0 +1,186 @@
+﻿@model QLNX.Areas.Admin.Models.TaoLichModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Assets/User/Js/jquery.min.js"></script>
+<script src="~/Assets/Admin/Js/main.js"></script>
+<div class="container" style="margin-top:3%">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-6"><h6 class="m-0 font-weight-bold text-primary">Quản lý lịch</h6></div>
+                <div style="text-align:right;" class="col-md-6">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="AddLich(0)" data-bs-target="#myModal">Tạo lịch mới</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Ngày khởi hành</th>
+                            <th>Giờ chạy</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="SetLichList"></tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalTitle"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form">
+                                <fieldset id="SubmitForm">
+                                    @Html.HiddenFor(m=>m.MALICH, new { @id = "MALICH" })
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        <input class="form-control" type="date" id="NGAYKHOIHANH" name="NGAYKHOIHANH" value="" />
+                                        @*@Html.TextBoxFor(m => m.NGAYKHOIHANH, new { @id = "NGAYKHOIHANH dpd1", @class = "form-control", @placeholder = "Chọn ngày" })*@
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" style="width: 100%;" name="GIOCHAY" id="GIOCHAY">
+                                            <option selected value="">---Chọn giờ---</option>
+                                            <option value="06:00">06:00</option>
+                                            <option value="09:00">09:00</option>
+                                            <option value="13:00">13:00</option>
+                                            <option value="15:00">15:00</option>
+                                            <option value="18:00">18:00</option>
+                                            <option value="20:00">20:00</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.MATUYEN, ViewBag.listTuyen as SelectList, null, new { @id = "MATUYEN", @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.MAXE, ViewBag.listXe as SelectList, null, new { @id = "MAXE", @class = "form-control" })
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="SaveRecord">Lưu thông tin</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="modal fade" id="DeleteConfirmation" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Xóa lịch</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="text text-danger">Bạn có chắc muốn xóa lịch này ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Xóa</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    
+            $.get("/Lich/GetLichList", null, DataBind);
+            function DataBind(Lich) {
+                var SetData = $("#SetLichList");
+                for (var i = 0; i < Lich.length; i++) {
+                    var Data = "<tr class='row_" + Lich[i].MALICH + "'>" +
+                        "<td>" + parseJsonDate(Lich[i].NGAYKHOIHANH) + "</td>" +
+                         "<td>" + Lich[i].GIOCHAY + "</td>" +
+                        "<td>"  + "<a class='middle' style='padding: 5px 10px;' href='javascript:void(0)' class='btn btn-danger' onclick='DeleteRecord(" + JSON.stringify(Lich[i].MALICH) + ")'><i class='fa fa-trash'></i> </a>" + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    $("#LoadingStatus").html(" ");
+
+                }
+            }
+
+
+            function AddLich(MALICH) {
+                $("#form")[0].reset();
+                $("#ModalTitle").html("Tạo lịch mới");
+                $("#myModal").modal();
+
+            }
+
+
+            function parseJsonDate(jsonDate) {
+
+                var fullDate = new Date(parseInt(jsonDate.substr(6)));
+                var twoDigitMonth = (fullDate.getMonth() + 1) + ""; if (twoDigitMonth.length == 1) twoDigitMonth = "0" + twoDigitMonth;
+
+                var twoDigitDate = fullDate.getDate() + ""; if (twoDigitDate.length == 1) twoDigitDate = "0" + twoDigitDate;
+                var currentDate = twoDigitMonth + "/" + twoDigitDate + "/" + fullDate.getFullYear();
+
+                return currentDate;
+            }
+            $("#SaveRecord").click(function () {
+                var data = $("#SubmitForm").serialize();
+                if ($("#NGAYKHOIHANH").val() == "") {
+                    showAlertSmall('Chưa chọn ngày!!!')
+                }
+                else if ($("#GIOCHAY").val() == "") {
+                    showAlertSmall('Chưa chọn giờ!!!')
+                }
+                 else {
+                    $.ajax({
+                        type: "get",
+                        url: "/Lich/SaveDataInDatabase",
+                        data: data,
+
+                        success: function (result) {
+                            showAlertSuccess(result.alert);
+                            setTimeout(function () {
+                                window.location.href = "/Admin/quan-ly-lich";
+                            }, 2000)
+                            $("#myModal").modal("hide");
+                        }
+                    })
+
+                }
+            })
+
+            //Show The Popup Modal For DeleteComfirmation
+            var DeleteRecord = function (MALICH) {
+                $("#MALICH").val(MALICH);
+                console.log(MALICH);
+                $("#DeleteConfirmation").modal("show");
+            }
+            var ConfirmDelete = function () {
+                var MALICH = $("#MALICH").val();
+                $.ajax({
+                    type: "GET",
+                    datatype: "json",
+                    traditional: true,
+                    url: "/Admin/Lich/DeleteRecord?id=" + MALICH,
+                    success: function (result) {
+                        $("#DeleteConfirmation").modal("hide");
+                        $(".row_" + MALICH).remove();
+                    }
+                })
+            }
+</script>
+
+
+

@@ -1,0 +1,48 @@
+﻿@model QLNX.Areas.Admin.Models.AccountModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Đăng nhập hệ thống</title>
+    <link rel="stylesheet" type="text/css" href="~/Assets/Admin/Css/styleLogin.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <img class="wave" src="~/Areas/Admin/Image/bg7.jpg">
+    <div class="containerLogin">
+        <div class="login-content">
+            <form action="" method="post">
+                <h2 style="color: white;" class="title">Đăng nhập</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Username</h5>
+                        <input type="text" class="input" name="UserName" autocomplete="off">
+                        @Html.ValidationMessageFor(x=>x.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Password</h5>
+                        <input type="password" class="input" name="PassWord">
+                        @Html.ValidationMessageFor(x => x.PassWord, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <input type="submit" class="btn" value="Login" name="dangnhap">
+            </form>
+        </div>
+    </div>
+    <script src="~/Assets/Admin/Js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,664 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="quanlynhaxeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CHITIETGHE">
+          <Key>
+            <PropertyRef Name="MAPHOI" />
+            <PropertyRef Name="MAGHE" />
+          </Key>
+          <Property Name="MAPHOI" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MAGHE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GHE">
+          <Key>
+            <PropertyRef Name="MAGHE" />
+          </Key>
+          <Property Name="MAGHE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MAXE" Type="int" />
+          <Property Name="TENGHE" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRANGTHAIGHE" Type="nvarchar" MaxLength="50" />
+          <Property Name="HANG" Type="int" />
+          <Property Name="COT" Type="int" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MAKH" />
+          </Key>
+          <Property Name="MAKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HOTENKH" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDTKH" Type="varchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="MATKHAUKH" Type="varchar" MaxLength="50" />
+          <Property Name="TRANGTHAIKH" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIEMDON" Type="int" />
+        </EntityType>
+        <EntityType Name="LICHCHAY">
+          <Key>
+            <PropertyRef Name="MALICH" />
+          </Key>
+          <Property Name="MALICH" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NGAYKHOIHANH" Type="date" />
+          <Property Name="GIOCHAY" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRANGTHAILICH" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NHANVIEN">
+          <Key>
+            <PropertyRef Name="MANV" />
+          </Key>
+          <Property Name="MANV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HOTENNV" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDTNV" Type="varchar" MaxLength="50" />
+          <Property Name="CHUCVU" Type="nvarchar" MaxLength="50" />
+          <Property Name="CMND" Type="varchar" MaxLength="50" />
+          <Property Name="MATKHAUNV" Type="varchar" MaxLength="50" />
+          <Property Name="TRANGTHAINV" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PHOIXE">
+          <Key>
+            <PropertyRef Name="MAPHOI" />
+          </Key>
+          <Property Name="MAPHOI" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MATUYEN" Type="int" />
+          <Property Name="MAKH" Type="int" />
+          <Property Name="MALICH" Type="varchar" MaxLength="50" />
+          <Property Name="NGAYTAOVE" Type="datetime" />
+          <Property Name="NGAYDATVE" Type="datetime" />
+          <Property Name="THANHTIEN" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TRANGTHAIPHOI" Type="nvarchar" MaxLength="50" />
+          <Property Name="PTTHANHTOAN" Type="nvarchar" MaxLength="50" />
+          <Property Name="MA_XE" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TUYENDUONG">
+          <Key>
+            <PropertyRef Name="MATUYEN" />
+          </Key>
+          <Property Name="MATUYEN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DIADIEMDI" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIADIEMDEN" Type="nvarchar" MaxLength="50" />
+          <Property Name="THOIGIANCHAY" Type="nvarchar" MaxLength="50" />
+          <Property Name="DODAI" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRANGTHAITUYEN" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TRAM">
+          <Key>
+            <PropertyRef Name="MATRAM" />
+          </Key>
+          <Property Name="MATRAM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MATUYEN" Type="int" />
+          <Property Name="TENTRAM" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
+          <Property Name="TRANGTHAITRAM" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="XE">
+          <Key>
+            <PropertyRef Name="MAXE" />
+          </Key>
+          <Property Name="MAXE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENXE" Type="nvarchar" MaxLength="50" />
+          <Property Name="HANGXE" Type="text" />
+          <Property Name="SOGHE" Type="int" />
+          <Property Name="HINHANH" Type="varchar" MaxLength="50" />
+          <Property Name="GIAVE" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="BIENXE" Type="text" />
+          <Property Name="TRANGTHAIXE" Type="nvarchar" MaxLength="50" />
+          <Property Name="MANV" Type="int" />
+        </EntityType>
+        <Association Name="FK_CHI_TIET_PHOIXE">
+          <End Role="PHOIXE" Type="Self.PHOIXE" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CHITIETGHE" Type="Self.CHITIETGHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHOIXE">
+              <PropertyRef Name="MAPHOI" />
+            </Principal>
+            <Dependent Role="CHITIETGHE">
+              <PropertyRef Name="MAPHOI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHI_TIET2_GHE">
+          <End Role="GHE" Type="Self.GHE" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CHITIETGHE" Type="Self.CHITIETGHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GHE">
+              <PropertyRef Name="MAGHE" />
+            </Principal>
+            <Dependent Role="CHITIETGHE">
+              <PropertyRef Name="MAGHE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GHE_TREN_XE">
+          <End Role="XE" Type="Self.XE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GHE" Type="Self.GHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XE">
+              <PropertyRef Name="MAXE" />
+            </Principal>
+            <Dependent Role="GHE">
+              <PropertyRef Name="MAXE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KH_DAT_VE">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="PHOIXE" Type="Self.PHOIXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MAKH" />
+            </Principal>
+            <Dependent Role="PHOIXE">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHANVIEN_XE">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="XE" Type="Self.XE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="XE">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHOIXE_CHAY_TUYENDUO">
+          <End Role="TUYENDUONG" Type="Self.TUYENDUONG" Multiplicity="0..1" />
+          <End Role="PHOIXE" Type="Self.PHOIXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUYENDUONG">
+              <PropertyRef Name="MATUYEN" />
+            </Principal>
+            <Dependent Role="PHOIXE">
+              <PropertyRef Name="MATUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHOIXE_TAO_LICHCHAY">
+          <End Role="LICHCHAY" Type="Self.LICHCHAY" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PHOIXE" Type="Self.PHOIXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LICHCHAY">
+              <PropertyRef Name="MALICH" />
+            </Principal>
+            <Dependent Role="PHOIXE">
+              <PropertyRef Name="MALICH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRAM_THUOC_TUYENDUO">
+          <End Role="TUYENDUONG" Type="Self.TUYENDUONG" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUYENDUONG">
+              <PropertyRef Name="MATUYEN" />
+            </Principal>
+            <Dependent Role="TRAM">
+              <PropertyRef Name="MATUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="quanlynhaxeModelStoreContainer">
+          <EntitySet Name="CHITIETGHE" EntityType="Self.CHITIETGHE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GHE" EntityType="Self.GHE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LICHCHAY" EntityType="Self.LICHCHAY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHOIXE" EntityType="Self.PHOIXE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUYENDUONG" EntityType="Self.TUYENDUONG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRAM" EntityType="Self.TRAM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="XE" EntityType="Self.XE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CHI_TIET_PHOIXE" Association="Self.FK_CHI_TIET_PHOIXE">
+            <End Role="PHOIXE" EntitySet="PHOIXE" />
+            <End Role="CHITIETGHE" EntitySet="CHITIETGHE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHI_TIET2_GHE" Association="Self.FK_CHI_TIET2_GHE">
+            <End Role="GHE" EntitySet="GHE" />
+            <End Role="CHITIETGHE" EntitySet="CHITIETGHE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GHE_TREN_XE" Association="Self.FK_GHE_TREN_XE">
+            <End Role="XE" EntitySet="XE" />
+            <End Role="GHE" EntitySet="GHE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KH_DAT_VE" Association="Self.FK_KH_DAT_VE">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="PHOIXE" EntitySet="PHOIXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHANVIEN_XE" Association="Self.FK_NHANVIEN_XE">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="XE" EntitySet="XE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHOIXE_CHAY_TUYENDUO" Association="Self.FK_PHOIXE_CHAY_TUYENDUO">
+            <End Role="TUYENDUONG" EntitySet="TUYENDUONG" />
+            <End Role="PHOIXE" EntitySet="PHOIXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHOIXE_TAO_LICHCHAY" Association="Self.FK_PHOIXE_TAO_LICHCHAY">
+            <End Role="LICHCHAY" EntitySet="LICHCHAY" />
+            <End Role="PHOIXE" EntitySet="PHOIXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRAM_THUOC_TUYENDUO" Association="Self.FK_TRAM_THUOC_TUYENDUO">
+            <End Role="TUYENDUONG" EntitySet="TUYENDUONG" />
+            <End Role="TRAM" EntitySet="TRAM" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="quanlynhaxeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GHE">
+          <Key>
+            <PropertyRef Name="MAGHE" />
+          </Key>
+          <Property Name="MAGHE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAXE" Type="Int32" />
+          <Property Name="TENGHE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRANGTHAIGHE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HANG" Type="Int32" />
+          <Property Name="COT" Type="Int32" />
+          <NavigationProperty Name="XE" Relationship="Self.FK_GHE_TREN_XE" FromRole="GHE" ToRole="XE" />
+          <NavigationProperty Name="PHOIXE" Relationship="Self.CHITIETGHE" FromRole="GHE" ToRole="PHOIXE" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MAKH" />
+          </Key>
+          <Property Name="MAKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HOTENKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDTKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATKHAUKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRANGTHAIKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIEMDON" Type="Int32" />
+          <NavigationProperty Name="PHOIXE" Relationship="Self.FK_KH_DAT_VE" FromRole="KHACHHANG" ToRole="PHOIXE" />
+        </EntityType>
+        <EntityType Name="LICHCHAY">
+          <Key>
+            <PropertyRef Name="MALICH" />
+          </Key>
+          <Property Name="MALICH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NGAYKHOIHANH" Type="DateTime" Precision="0" />
+          <Property Name="GIOCHAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRANGTHAILICH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PHOIXE" Relationship="Self.FK_PHOIXE_TAO_LICHCHAY" FromRole="LICHCHAY" ToRole="PHOIXE" />
+        </EntityType>
+        <EntityType Name="NHANVIEN">
+          <Key>
+            <PropertyRef Name="MANV" />
+          </Key>
+          <Property Name="MANV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HOTENNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDTNV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CHUCVU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CMND" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATKHAUNV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRANGTHAINV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="XE" Relationship="Self.FK_NHANVIEN_XE" FromRole="NHANVIEN" ToRole="XE" />
+        </EntityType>
+        <EntityType Name="PHOIXE">
+          <Key>
+            <PropertyRef Name="MAPHOI" />
+          </Key>
+          <Property Name="MAPHOI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MATUYEN" Type="Int32" />
+          <Property Name="MAKH" Type="Int32" />
+          <Property Name="MALICH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NGAYTAOVE" Type="DateTime" Precision="3" />
+          <Property Name="NGAYDATVE" Type="DateTime" Precision="3" />
+          <Property Name="THANHTIEN" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TRANGTHAIPHOI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PTTHANHTOAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MA_XE" Type="Int32" />
+          <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_KH_DAT_VE" FromRole="PHOIXE" ToRole="KHACHHANG" />
+          <NavigationProperty Name="LICHCHAY" Relationship="Self.FK_PHOIXE_TAO_LICHCHAY" FromRole="PHOIXE" ToRole="LICHCHAY" />
+          <NavigationProperty Name="TUYENDUONG" Relationship="Self.FK_PHOIXE_CHAY_TUYENDUO" FromRole="PHOIXE" ToRole="TUYENDUONG" />
+          <NavigationProperty Name="GHE" Relationship="Self.CHITIETGHE" FromRole="PHOIXE" ToRole="GHE" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TUYENDUONG">
+          <Key>
+            <PropertyRef Name="MATUYEN" />
+          </Key>
+          <Property Name="MATUYEN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DIADIEMDI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIADIEMDEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="THOIGIANCHAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DODAI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRANGTHAITUYEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PHOIXE" Relationship="Self.FK_PHOIXE_CHAY_TUYENDUO" FromRole="TUYENDUONG" ToRole="PHOIXE" />
+          <NavigationProperty Name="TRAM" Relationship="Self.FK_TRAM_THUOC_TUYENDUO" FromRole="TUYENDUONG" ToRole="TRAM" />
+        </EntityType>
+        <EntityType Name="TRAM">
+          <Key>
+            <PropertyRef Name="MATRAM" />
+          </Key>
+          <Property Name="MATRAM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MATUYEN" Type="Int32" />
+          <Property Name="TENTRAM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TRANGTHAITRAM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TUYENDUONG" Relationship="Self.FK_TRAM_THUOC_TUYENDUO" FromRole="TRAM" ToRole="TUYENDUONG" />
+        </EntityType>
+        <EntityType Name="XE">
+          <Key>
+            <PropertyRef Name="MAXE" />
+          </Key>
+          <Property Name="MAXE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENXE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HANGXE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SOGHE" Type="Int32" />
+          <Property Name="HINHANH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GIAVE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BIENXE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TRANGTHAIXE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MANV" Type="Int32" />
+          <NavigationProperty Name="GHE" Relationship="Self.FK_GHE_TREN_XE" FromRole="XE" ToRole="GHE" />
+          <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_NHANVIEN_XE" FromRole="XE" ToRole="NHANVIEN" />
+        </EntityType>
+        <Association Name="FK_GHE_TREN_XE">
+          <End Role="XE" Type="Self.XE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GHE" Type="Self.GHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XE">
+              <PropertyRef Name="MAXE" />
+            </Principal>
+            <Dependent Role="GHE">
+              <PropertyRef Name="MAXE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KH_DAT_VE">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="PHOIXE" Type="Self.PHOIXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MAKH" />
+            </Principal>
+            <Dependent Role="PHOIXE">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHOIXE_TAO_LICHCHAY">
+          <End Role="LICHCHAY" Type="Self.LICHCHAY" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PHOIXE" Type="Self.PHOIXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LICHCHAY">
+              <PropertyRef Name="MALICH" />
+            </Principal>
+            <Dependent Role="PHOIXE">
+              <PropertyRef Name="MALICH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHANVIEN_XE">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="XE" Type="Self.XE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="XE">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHOIXE_CHAY_TUYENDUO">
+          <End Role="TUYENDUONG" Type="Self.TUYENDUONG" Multiplicity="0..1" />
+          <End Role="PHOIXE" Type="Self.PHOIXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUYENDUONG">
+              <PropertyRef Name="MATUYEN" />
+            </Principal>
+            <Dependent Role="PHOIXE">
+              <PropertyRef Name="MATUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRAM_THUOC_TUYENDUO">
+          <End Role="TUYENDUONG" Type="Self.TUYENDUONG" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUYENDUONG">
+              <PropertyRef Name="MATUYEN" />
+            </Principal>
+            <Dependent Role="TRAM">
+              <PropertyRef Name="MATUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CHITIETGHE">
+          <End Role="PHOIXE" Type="Self.PHOIXE" Multiplicity="*" />
+          <End Role="GHE" Type="Self.GHE" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="quanlynhaxeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GHE" EntityType="Self.GHE" />
+          <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" />
+          <EntitySet Name="LICHCHAY" EntityType="Self.LICHCHAY" />
+          <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" />
+          <EntitySet Name="PHOIXE" EntityType="Self.PHOIXE" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TUYENDUONG" EntityType="Self.TUYENDUONG" />
+          <EntitySet Name="TRAM" EntityType="Self.TRAM" />
+          <EntitySet Name="XE" EntityType="Self.XE" />
+          <AssociationSet Name="FK_GHE_TREN_XE" Association="Self.FK_GHE_TREN_XE">
+            <End Role="XE" EntitySet="XE" />
+            <End Role="GHE" EntitySet="GHE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KH_DAT_VE" Association="Self.FK_KH_DAT_VE">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="PHOIXE" EntitySet="PHOIXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHOIXE_TAO_LICHCHAY" Association="Self.FK_PHOIXE_TAO_LICHCHAY">
+            <End Role="LICHCHAY" EntitySet="LICHCHAY" />
+            <End Role="PHOIXE" EntitySet="PHOIXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHANVIEN_XE" Association="Self.FK_NHANVIEN_XE">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="XE" EntitySet="XE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHOIXE_CHAY_TUYENDUO" Association="Self.FK_PHOIXE_CHAY_TUYENDUO">
+            <End Role="TUYENDUONG" EntitySet="TUYENDUONG" />
+            <End Role="PHOIXE" EntitySet="PHOIXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRAM_THUOC_TUYENDUO" Association="Self.FK_TRAM_THUOC_TUYENDUO">
+            <End Role="TUYENDUONG" EntitySet="TUYENDUONG" />
+            <End Role="TRAM" EntitySet="TRAM" />
+          </AssociationSet>
+          <AssociationSet Name="CHITIETGHE" Association="Self.CHITIETGHE">
+            <End Role="PHOIXE" EntitySet="PHOIXE" />
+            <End Role="GHE" EntitySet="GHE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="quanlynhaxeModelStoreContainer" CdmEntityContainer="quanlynhaxeEntities">
+          <EntitySetMapping Name="GHE">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.GHE">
+              <MappingFragment StoreEntitySet="GHE">
+                <ScalarProperty Name="MAGHE" ColumnName="MAGHE" />
+                <ScalarProperty Name="MAXE" ColumnName="MAXE" />
+                <ScalarProperty Name="TENGHE" ColumnName="TENGHE" />
+                <ScalarProperty Name="TRANGTHAIGHE" ColumnName="TRANGTHAIGHE" />
+                <ScalarProperty Name="HANG" ColumnName="HANG" />
+                <ScalarProperty Name="COT" ColumnName="COT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHACHHANG">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.KHACHHANG">
+              <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="HOTENKH" ColumnName="HOTENKH" />
+                <ScalarProperty Name="SDTKH" ColumnName="SDTKH" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="MATKHAUKH" ColumnName="MATKHAUKH" />
+                <ScalarProperty Name="TRANGTHAIKH" ColumnName="TRANGTHAIKH" />
+                <ScalarProperty Name="DIEMDON" ColumnName="DIEMDON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LICHCHAY">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.LICHCHAY">
+              <MappingFragment StoreEntitySet="LICHCHAY">
+                <ScalarProperty Name="MALICH" ColumnName="MALICH" />
+                <ScalarProperty Name="NGAYKHOIHANH" ColumnName="NGAYKHOIHANH" />
+                <ScalarProperty Name="GIOCHAY" ColumnName="GIOCHAY" />
+                <ScalarProperty Name="TRANGTHAILICH" ColumnName="TRANGTHAILICH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHANVIEN">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.NHANVIEN">
+              <MappingFragment StoreEntitySet="NHANVIEN">
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="HOTENNV" ColumnName="HOTENNV" />
+                <ScalarProperty Name="SDTNV" ColumnName="SDTNV" />
+                <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="MATKHAUNV" ColumnName="MATKHAUNV" />
+                <ScalarProperty Name="TRANGTHAINV" ColumnName="TRANGTHAINV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHOIXE">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.PHOIXE">
+              <MappingFragment StoreEntitySet="PHOIXE">
+                <ScalarProperty Name="MAPHOI" ColumnName="MAPHOI" />
+                <ScalarProperty Name="MATUYEN" ColumnName="MATUYEN" />
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="MALICH" ColumnName="MALICH" />
+                <ScalarProperty Name="NGAYTAOVE" ColumnName="NGAYTAOVE" />
+                <ScalarProperty Name="NGAYDATVE" ColumnName="NGAYDATVE" />
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+                <ScalarProperty Name="TRANGTHAIPHOI" ColumnName="TRANGTHAIPHOI" />
+                <ScalarProperty Name="PTTHANHTOAN" ColumnName="PTTHANHTOAN" />
+                <ScalarProperty Name="MA_XE" ColumnName="MA_XE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUYENDUONG">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.TUYENDUONG">
+              <MappingFragment StoreEntitySet="TUYENDUONG">
+                <ScalarProperty Name="MATUYEN" ColumnName="MATUYEN" />
+                <ScalarProperty Name="DIADIEMDI" ColumnName="DIADIEMDI" />
+                <ScalarProperty Name="DIADIEMDEN" ColumnName="DIADIEMDEN" />
+                <ScalarProperty Name="THOIGIANCHAY" ColumnName="THOIGIANCHAY" />
+                <ScalarProperty Name="DODAI" ColumnName="DODAI" />
+                <ScalarProperty Name="TRANGTHAITUYEN" ColumnName="TRANGTHAITUYEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRAM">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.TRAM">
+              <MappingFragment StoreEntitySet="TRAM">
+                <ScalarProperty Name="MATRAM" ColumnName="MATRAM" />
+                <ScalarProperty Name="MATUYEN" ColumnName="MATUYEN" />
+                <ScalarProperty Name="TENTRAM" ColumnName="TENTRAM" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="TRANGTHAITRAM" ColumnName="TRANGTHAITRAM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XE">
+            <EntityTypeMapping TypeName="quanlynhaxeModel.XE">
+              <MappingFragment StoreEntitySet="XE">
+                <ScalarProperty Name="MAXE" ColumnName="MAXE" />
+                <ScalarProperty Name="TENXE" ColumnName="TENXE" />
+                <ScalarProperty Name="HANGXE" ColumnName="HANGXE" />
+                <ScalarProperty Name="SOGHE" ColumnName="SOGHE" />
+                <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
+                <ScalarProperty Name="GIAVE" ColumnName="GIAVE" />
+                <ScalarProperty Name="BIENXE" ColumnName="BIENXE" />
+                <ScalarProperty Name="TRANGTHAIXE" ColumnName="TRANGTHAIXE" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CHITIETGHE" TypeName="quanlynhaxeModel.CHITIETGHE" StoreEntitySet="CHITIETGHE">
+            <EndProperty Name="PHOIXE">
+              <ScalarProperty Name="MAPHOI" ColumnName="MAPHOI" />
+            </EndProperty>
+            <EndProperty Name="GHE">
+              <ScalarProperty Name="MAGHE" ColumnName="MAGHE" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

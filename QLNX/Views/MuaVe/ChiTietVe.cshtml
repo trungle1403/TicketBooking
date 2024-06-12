@@ -1,0 +1,121 @@
+﻿@model QLNX.Models.CheckoutModel
+@{
+    ViewBag.Title = "ChiTietVe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--========================= PAGE-COVER ======================-->
+<section class="page-cover back-size" id="cover-flight-grid-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="breadcrumb">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li class="active">Chọn ghế</li>
+                </ul>
+            </div><!-- end columns -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end page-cover -->
+
+<form action="" method="post">
+    <div style="margin-top:50px;min-height:100vh;" class="container">
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;" class="row">
+             @*Thông tin vé*@
+            <div style="background-color:#f8f9f9;border-radius:10px;padding:10px 30px 10px 30px;border: 1px solid #ebedee;" class="col-xs-12 col-sm-12 col-md-4">
+                <h4>Thông tin vé</h4>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Tuyến:</label>
+                        <span class="form-control"> @Session["diemdi"] - @Session["diemden"] </span>
+                    </div>
+                </div>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Ngày khởi hành: </label>
+                        <span class="form-control"> @Session["ngay"] </span> 
+                    </div>
+                </div>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Giờ chạy: </label>
+                        <span class="form-control"> @Session["giochay"] </span> 
+                    </div>
+                </div>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Ghế đã chọn: </label>
+                        <span class="form-control"> @Session["ghedachon"] </span> 
+                    </div>
+                </div>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Giá mỗi vé: </label>
+                        <span class="form-control"> @String.Format("{0:n0}", @Session["giave"]) VND </span> 
+                    </div>
+                </div>
+            </div>
+
+            @*Thông tin khách hàng*@
+            <div style="background-color:#f8f9f9;border-radius:10px;padding:10px 30px 10px 30px;border: 1px solid #ebedee;" class="col-xs-12 col-sm-12 col-md-4">
+                <h4>Thông tin khách hàng</h4>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Họ tên<span style="color:red;">(*)</span> :</label>
+                        <input id="HOTEN" name="HOTEN" class="form-control" value="@if (Session["userten"] != null) { @Session["userten"] }" />
+                        @Html.ValidationMessageFor(model => model.HOTEN, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Email<span style="color:red;">(*)</span> : </label>
+                        <input id="EMAIL" name="EMAIL" type="email" class="form-control" value="@if (Session["useremail"] != null) { @Session["useremail"]}" />
+                        @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Số điện thoại<span style="color:red;">(*)</span> : </label>
+                        <input id="SDT" name="SDT" type="text" class="form-control" value="@if (Session["usersdt"] != null) {@Session["usersdt"]}" />
+                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Địa điểm lên xe<span style="color:red;">(*)</span> : </label>
+                        @Html.DropDownListFor(Model => Model.MATRAM, ViewBag.listTram as SelectList, null, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label class="form-label">Phương thức thanh toán<span style="color:red;">(*)</span> : </label>
+                        @Html.DropDownListFor(m => m.PTTHANHTOAN, ViewBag.listPTTT as SelectList, null, new { @id = "PTTHANHTOAN", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PTTHANHTOAN, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <h5 style="margin-top:15px;font-weight:bold;">
+                    Tổng tiền phải thanh toán:
+                    <label style="color:red;font-size:18px;" class="form-label">@String.Format("{0:n0}", @Session["tongtien"]) VND </label>
+                </h5>
+
+                <button id="btnCheckout" style="margin-top:20px;" type="submit" class="btn btn-orange">Thanh toán</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    .form-control{
+        margin-bottom:5px;
+        border-top:none !important;
+        border-left:none;
+        border-right:none;
+        border-radius:unset;
+        border-bottom:1px solid teal !important;
+        color:black;
+    }
+    .form-label{
+
+    }
+</style>

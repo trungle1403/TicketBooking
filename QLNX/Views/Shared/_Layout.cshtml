@@ -1,0 +1,130 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>Website đặt vé xe khách</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i%7CMerriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="~/Assets/User/Css/bootstrap.min.css">
+
+    <!-- Font Awesome Stylesheet -->
+    @*<link rel="stylesheet" href="~/Assets/User/Css/fontawesome.min.css">*@
+
+    <link href="~/Assets/Admin/Css/fontawesome-free/css/all.min.css" rel="stylesheet" />
+
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="~/Assets/User/Css/style.css">
+    <link rel="stylesheet" id="cpswitch" href="~/Assets/User/Css/orange.css">
+    <link rel="stylesheet" href="~/Assets/User/Css/responsive.css">
+
+    <!-- Flex Slider Stylesheet -->
+    <link rel="stylesheet" href="~/Assets/User/Css/flexslider.css" type="text/css" />
+
+    <!--Date-Picker Stylesheet-->
+    <link rel="stylesheet" href="~/Assets/User/Css/datepicker.css">
+
+    <!-- Magnific Gallery -->
+    <link rel="stylesheet" href="~/Assets/User/Css/magnific-popup.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+    <script src="~/Assets/User/Js/jquery.min.js"></script> 
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    @*CSS*@
+    <link href="~/Assets/User/Css/other.css" rel="stylesheet" />
+</head>
+
+
+<body id="flight-homepage">
+
+    <!--====== LOADER =====-->
+    <div class="loader"></div>
+
+
+    <!--============= TOP-BAR ===========-->
+    <div id="top-bar" class="tb-text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div id="info">
+                        <ul class="list-unstyled list-inline">
+                            <img  src="~/Image/logo.png" alt="Alternate Text" />  
+                        </ul>
+                    </div><!-- end info -->
+                </div><!-- end columns -->
+                
+                <div style="display:flex;justify-content:flex-end" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                @if (Session["userten"] != null)
+                {
+                    <div class="dropdownCus">
+                        <button id="btnDropdown"><img width="18px" src="~/Image/user.png" /> @Session["userten"] </button>
+                        <ul id="ul">
+                            <li><a id="ttcn" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Thông tin cá nhân</a></li>
+                            <li><a  href="/ve-cua-toi"> <i class="fas fa-ticket-alt fa-sm fa-fw mr-2 text-gray-400"></i> Vé của tôi</a></li>
+                            <li><a href="/dang-xuat"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                   <a href="/dang-nhap"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>  Đăng nhập</a>
+                }
+
+                        <!-- end links -->
+                    </div><!-- end columns -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end top-bar -->
+    
+
+        @RenderBody()
+
+
+    <!--======================= FOOTER =======================-->
+    <section id="footer" class="ftr-heading-w ftr-heading-mgn-2">
+
+
+        <div id="footer-bottom" class="ftr-bot-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="copyright">
+                        <p>© 2021 <a style="color:yellow;" href="#">Phú Vĩnh Long</a>. All rights reserved.</p>
+                    </div><!-- end columns -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </div><!-- end footer-bottom -->
+
+    </section><!-- end footer -->
+
+    <!-- Page Scripts Starts -->
+    <script src="~/Assets/User/Js/main.js"></script>
+
+    
+
+    <script src="~/Assets/User/Js/bootstrap.min.js"></script>
+    <script src="~/Assets/User/Js/jquery.flexslider.js"></script>
+    <script src="~/Assets/User/Js/bootstrap-datepicker.js"></script>
+    <script src="~/Assets/User/Js/custom-navigation.js"></script>
+    <script src="~/Assets/User/Js/custom-flex.js"></script>
+    <script src="~/Assets/User/Js/custom-date-picker.js"></script>
+
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- Page Scripts Ends -->
+
+</body>
+</html>

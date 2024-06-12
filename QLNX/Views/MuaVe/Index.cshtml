@@ -1,0 +1,106 @@
+﻿@model QLNX.Models.LichModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <!--========================= FLEX SLIDER =====================-->
+<section class="flexslider-container" id="flexslider-container-2">
+
+    <div class="flexslider slider" id="slider-2">
+        <ul class="slides">
+
+            <li class="item-1 back-size" style="background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(../../Image/giangsinh.png) 50% 15%;background-size:cover;height:100%;">
+                <div class="meta">
+                    <div class="container">
+                        <h2 style="font-family:'Adobe Fangsong Std'">Quản lý nhà xe</h2>
+                        <p style="font-family: 'Merriweather';font-size: 19px;">Website đặt vé xe khách Phú Vĩnh Long</p>
+                    </div><!-- end container -->
+                </div><!-- end meta -->
+            </li><!-- end item-1 -->
+
+            <li class="item-2 back-size" style="background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(../../Image/phuvl.jpg) 50% 15%;background-size:cover;height:100%;">
+                <div class=" meta">
+                    <div class="container">
+                        <h2 style="font-family:'Adobe Fangsong Std'">Quản lý nhà xe</h2>
+                        <p style="font-family: 'Merriweather';font-size: 19px;">Website đặt vé xe khách Phú Vĩnh Long</p>
+                    </div><!-- end container -->
+                </div><!-- end meta -->
+            </li><!-- end item-2 -->
+
+        </ul>
+    </div><!-- end slider -->
+
+    <div class="search-tabs" id="search-tabs-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li><a href="javascript:void(0)" data-toggle="tab active"><span><img src="~/Image/calendar.png" alt="Alternate Text" /></span><span class="st-text">Chọn lịch</span></a></li>
+                    </ul>
+
+                    <div class="tab-content">
+
+                        <div id="flights" class="tab-pane in active">
+                            <form method="post" action="">
+                                <div class="row">
+                                    <style>
+                                        .selectpicker{
+                                            color:black !important;
+                                            background:white !important;
+                                        }
+                                    </style>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
+                                        <div class="row">
+                                            
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <img style="position: absolute;top: 7px; left: 9px;z-index:999" src="~/Image/place.png" alt="Alternate Text" />
+                                                    @Html.DropDownListFor(Model=>Model.DIADIEMDI, ViewBag.listDiaDiem as SelectList, " Địa điểm đi", new { @class = "form-control selectpicker black" })
+                                                </div>
+                                            </div><!-- end columns -->
+
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group left-icon">
+                                                    <img style="position: absolute;top: 7px; left: 9px;z-index:999" src="~/Image/place.png" alt="Alternate Text" />
+                                                    <div class="form-group">
+                                                        @Html.DropDownListFor(Model => Model.DIADIEMDEN, ViewBag.listDiaDiem as SelectList, " Địa điểm đến", new { @class = "form-control selectpicker black" })
+                                                    </div>
+                                                </div>
+                                            </div><!-- end columns -->
+
+                                        </div><!-- end row -->
+                                    </div><!-- end columns -->
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+                                        <div class="row">
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group left-icon">
+                                                    <img  style="position: absolute;top: 7px; left: 9px;" src="~/Image/calendar.png" />
+                                                    <input class="form-control ngay dpd1" name="NGAYKHOIHANH" type="text" placeholder="Chọn ngày" value="" />
+                                                </div>
+                                            </div><!-- end columns -->
+
+                                        </div><!-- end row -->
+                                    </div><!-- end columns -->
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 search-btn">
+                                        <button type="submit" class="btn btn-orange " id="btnTim">Tìm</button>
+                                    </div><!-- end columns -->
+
+                                </div><!-- end row -->
+                            </form>
+                        </div><!-- end flights -->
+
+
+                    </div><!-- end tab-content -->
+
+                </div><!-- end columns -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end search-tabs -->
+
+</section><!-- end flexslider-container -->
+
+

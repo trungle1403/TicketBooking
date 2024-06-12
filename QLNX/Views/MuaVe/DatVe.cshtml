@@ -1,0 +1,235 @@
+﻿@model List<QLNX.Models.DatVeModel>
+@{
+    ViewBag.Title = "DatVe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .tab.active{
+    
+    background: #0275d8;
+    color: white;
+}
+</style>
+<!--========================= PAGE-COVER ======================-->
+<section class="page-cover back-size" id="cover-flight-grid-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="breadcrumb">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li class="active">Chọn ghế</li>
+                </ul>
+            </div><!-- end columns -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end page-cover -->
+<!--===== INNERPAGE-WRAPPER ====-->
+
+<div class="tab-content">
+    <div class="tab-pane active" id="chonghe">
+        <section class="innerpage-wrapper">
+            <div style="padding-top:50px !important;" id="flight-listings" class="innerpage-section-padding">
+                <form method="post">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Content right -->
+                            <div class="col-xs-12 col-sm-12 col-md-6 content-side">
+                                <div style="margin-left:100px;background:gainsboro;border-radius:20px;width:fit-content;padding:15px;">
+                                    <style>
+                                       
+                                    </style>
+                                    @if (Session["soghe"]!=null )
+                                    {
+                                        int hang=0;
+                                        int cot=0;
+                                        if(Convert.ToInt32(Session["soghe"]) == 15)
+                                        {
+                                            hang = 5;
+                                            cot = 4;
+                                        }else if(Convert.ToInt32(Session["soghe"]) == 30)
+                                        {
+                                            hang = 9;
+                                            cot = 5;
+                                        }
+                                        else if (Convert.ToInt32(Session["soghe"]) == 46)
+                                        {
+                                            hang = 12;
+                                            cot = 5;
+                                        }
+
+                                        string[,] seat = new string[20, 20];
+                                        string[,] tenghe = new string[20, 20];
+                                        string[,] trangthai = new string[20, 20];
+                                        decimal[,] giave = new decimal[20, 20];
+
+                                        for (int h = 0; h < hang; h++)
+                                        {
+                                            for (int c = 0; c < cot; c++)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    if (item.HANG - 1 == h && item.COT - 1 == c)
+                                                    {
+                                                        seat[h, c] = item.MAPHOI;
+                                                        tenghe[h, c] = item.TENGHE;
+                                                        trangthai[h, c] = item.TRANGTHAIPHOI;
+                                                        giave[h, c] = item.GIAVE;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        int id = 0;
+                                        for (int h = 0; h < hang; h++)
+                                        {
+                                            for (int c = 0; c < cot; c++)
+                                            {
+                                                if (seat[h, c] == null)
+                                                {
+                                                    <a class="seat"> <span></span>  <img style="opacity:0;" src="~/Image/seat-free.png" alt="Alternate Text" /></a>
+                                                }
+                                                else
+                                                {
+                                                    if (trangthai[h, c] == "Ghế trống")
+                                                    {
+                                                        id++;
+                                                        <a id="@id" style="cursor:pointer;user-select:none;" class="seat @seat[h,c]"> <span>@tenghe[h, c]</span> <img id="@seat[h,c]" src="~/Image/seat-free.png" alt="Ghế trống" /></a>
+                                                        <script>
+                                                    $(document).ready(function () {
+                                                        var book = 0;
+                                                        $(".@seat[h,c]").click(function () {
+
+                                                            if (book == 0) {
+                                                                $("#@seat[h, c]").attr("src", "/Image/myseat.png");
+                                                                book = 1;
+                                                            }
+                                                            else if (book == 1) {
+                                                                $("#@seat[h, c]").attr("src", "/Image/seat-free.png");
+                                                                book = 0;
+                                                            }
+                                                        });
+
+                                                    });
+                                                    var seat = document.getElementById("@id");
+                                                    seat.addEventListener("click", addSeat);
+                                                    var chuoi = [];
+                                                    var id = [];
+                                                    var tongTien = 0.0;
+                                                    function addSeat() {
+                                                        //Nếu tồn tại ghế trong cart thì xóa ghế đó vì click 2 lần là hủy chọn
+                                                        if (chuoi.includes("@tenghe[h, c].ToString()") && id.includes("@seat[h, c].ToString()")) {
+                                                            //hàm xóa phần tử nếu tìm thấy phần tử đó
+                                                            chuoi = chuoi.filter(item => item !== "@tenghe[h, c].ToString()");
+                                                            id = id.filter(item => item !== "@seat[h, c].ToString()");
+                                                            tongTien -= parseFloat("@giave[h,c]");
+                                                        } else {
+                                                            //Nếu chưa có ghế trong cart thì thêm vào
+                                                            chuoi.push("@tenghe[h, c].ToString()");
+                                                            id.push("@seat[h, c].ToString()");
+                                                            tongTien += parseFloat("@giave[h,c]");
+                                                        }
+                                                        //xử lý trên giao diện
+                                                        document.getElementById("seatCount").innerText = chuoi.length;
+                                                        document.getElementById("seatCart").innerText = chuoi;
+                                                        document.getElementById("totalCart").innerText = formatNumber(tongTien);
+                                                        console.log(tongtien);
+                                                        // xử lý để dùng sau
+                                                        document.getElementById("ghedachon").value = chuoi;
+                                                        document.getElementById("idSeat").value = id;
+                                                        document.getElementById("tongtien").value = tongTien;
+                                                    }
+
+                                                        </script>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="seat seat-booked"> <span>@tenghe[h, c]</span> <img src="~/Image/seat-booked.png" alt="Ghế" /></a>
+                                                    }
+
+                                                }
+
+
+                                            }
+                                            <br />
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <h5>Chú thích</h5>
+                                            <div>
+                                                <img src="~/Image/seat-free.png" alt="Ghế trống" /> Ghế trống <br /> <br />
+                                                <img src="~/Image/myseat.png" alt="Ghế đang chọn" /> Ghế đang chọn <br /> <br />
+                                                <img src="~/Image/seat-booked.png" alt="Ghế đã đặt" /> Ghế đã đặt <br /> <br />
+                                            </div>
+                                        </div>
+                                        @*<div class="col-xs-12 col-sm-12 col-md-6">
+                                            <h5>Thông tin cá nhân</h5>
+                                            <div>
+                                                <span>Họ tên: </span>   <h5 style="font-weight:bold">Lê Nguyễn Chí Trung</h5>
+                                                <span>Email: </span>  <h5 style="font-weight:bold">Email</h5>
+                                                <span>SDT: </span>  <h5 style="font-weight:bold">0762862479</h5>
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                </div>
+                                <div style="margin-top:50px;">
+                                    <div class="row">
+                                        @* Tên ghế *@
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <h5>Ghế đã chọn: <span style="color: #314c81; font-weight: bold; font-size: 14px;" id="seatCount"></span></h5>
+                                            <div style="color: #314c81; font-weight: bold; font-size: 17px;" id="seatCart">
+
+                                            </div>
+                                            <input style="display:none;" type="password" name="chuoiId" id="idSeat" value="" />
+                                            <input style="display:none;" type="password" name="ghedachon" id="ghedachon" value="" />
+                                            <input style="display:none;" type="password" name="tongtien" id="tongtien" value="" />
+                                        </div>
+                                        @*Tổng tiền*@
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <h5>Tổng tiền:</h5>
+                                            <div style="color: #314c81; font-weight: bold; font-size: 17px;">
+                                                <span id="totalCart">0 VND</span>
+                                            </div>
+
+                                            <button id="bookSeat" style="margin-top:20px;" type="submit" class="btn btn-orange">Đặt vé</button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end row -->
+                    </div><!-- end container -->
+                </form>
+            </div><!-- end flight-listings -->
+        </section><!-- end innerpage-wrapper -->
+    </div>
+</div>
+
+
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#bookSeat").click(function (evt) {
+                                                if (chuoi.length == 0) {
+                                                    // chặn submit của form
+                                                    evt.preventDefault();
+                                                    Swal.fire({
+                                                        icon: 'warning',
+                                                        title: 'Thông báo',
+                                                        text: 'Bạn chưa chọn ghế!',
+                                                        // toast:'false',
+                                                        confirmButtonText: 'OK',
+                                                        timer:2500
+                                                    })
+                                                }
+
+                                            })
+                                        })
+                                    </script>
+                

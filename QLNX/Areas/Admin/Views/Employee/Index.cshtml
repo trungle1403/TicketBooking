@@ -1,0 +1,199 @@
+﻿@model QLNX.Areas.Admin.Models.EmployeeModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Assets/User/Js/jquery.min.js"></script>
+<script src="~/Assets/Admin/Js/main.js"></script>
+<div class="container" style="margin-top:3%">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-6"><h6 class="m-0 font-weight-bold text-primary">Quản lý nhân viên</h6></div>
+                <div style="text-align:right;" class="col-md-6">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="AddEmployee(0)" data-bs-target="#myModal">Thêm nhân viên</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Chức vụ</th>
+                            <th>CMND</th>
+                            <th>Trạng thái</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="SetEmployeeList"></tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalTitle"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form">
+                                <fieldset id="SubmitForm">
+                                    @Html.HiddenFor(m => m.MANV, new { @id = "MANV" })
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.HOTENNV, new { @id = "HOTENNV", @class = "form-control", @placeholder = "Nhập họ tên" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.SDTNV, new { @id = "SDTNV", @class = "form-control", @placeholder = "Nhập số điện thoại" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.CMND, new { @id = "CMND", @class = "form-control", @placeholder = "Nhập số chứng minh" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.CHUCVU, ViewBag.listChucVu as SelectList, null, new { @id = "CHUCVU", @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.TRANGTHAINV, ViewBag.listTrangThai as SelectList, null, new { @id = "TRANGTHAINV", @class = "form-control" })
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="SaveRecord">Lưu thông tin</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="modal fade" id="DeleteConfirmation" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Xóa nhân viên</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="text text-danger">Bạn có chắc muốn xóa nhân viên này ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Xóa</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        @*<script src="~/Assets/Admin/Css/bootstrap/js/bootstrap.min.js"></script>*@
+        <script>
+
+            //$("#LoadingStatus").html("Loading....");
+            $.get("/Employee/GetEmployeeList", null, DataBind);
+            function DataBind(EmployeeList) {
+                var SetData = $("#SetEmployeeList");
+                for (var i = 0; i < EmployeeList.length; i++) {
+                    var Data = "<tr class='row_" + EmployeeList[i].MANV + "'>" +
+                        "<td>" + EmployeeList[i].HOTENNV + "</td>" +
+                        "<td>" + EmployeeList[i].SDTNV + "</td>" +
+                        "<td>" + EmployeeList[i].CHUCVU + "</td>" +
+                        "<td>" + EmployeeList[i].CMND + "</td>" +
+                        "<td>" + EmployeeList[i].TRANGTHAINV + "</td>" +
+                        "<td>" + "<a style='margin-right:5px;padding: 5px 10px;' href='javascript:void(0)' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#myModal' onclick='EditRecord(" + EmployeeList[i].MANV + ")' ><i class='fa fa-pen'></i></a>"
+                               + "<a style='padding: 5px 10px;' href='javascript:void(0)' class='btn btn-danger' onclick='DeleteRecord(" + EmployeeList[i].MANV + ")'><i class='fa fa-trash'></i> </a>" + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    $("#LoadingStatus").html(" ");
+
+                }
+            }
+
+            //Show The Popup Modal For Add New Student
+
+            function AddEmployee(MANV) {
+                $("#form")[0].reset();
+                $("#MANV").val(0);
+                // $("#CHUCVU option:selected").text("--Chọn chức vụ--");
+                //$("#TRANGTHAINV option:selected").text("--Chọn trạng thái--");
+                $("#ModalTitle").html("Thêm nhân viên");
+                $("#myModal").modal();
+
+            }
+
+            //Show The Popup Modal For Edit Student Record
+
+            function EditRecord(MANV) {
+                $("#ModalTitle").html("Cập nhật nhân viên");
+                $("#myModal").modal();
+                $.ajax({
+                    type: "GET",
+                    url: "/Employee/GetEmployeeById?id=" + MANV,
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (obj) {
+                        $("#MANV").val(obj.MANV);
+                        $("#HOTENNV").val(obj.HOTENNV);
+                        $("#SDTNV").val(obj.SDTNV);
+                        $("#CMND").val(obj.CMND);
+                        $("#CHUCVU option:selected").text(obj.CHUCVU);
+                        $("#TRANGTHAINV option:selected").text(obj.TRANGTHAINV);
+
+                    }
+                })
+            }
+
+            $("#SaveRecord").click(function () {
+                var data = $("#SubmitForm").serialize();
+                if ($("#HOTENNV").val() == "") {
+                    showAlertSmall('Chưa nhập họ tên!!!')
+                }
+                else if ($("#SDTNV").val() == "") {
+                    showAlertSmall('Chưa nhập số điện thoại!!!')
+                }
+                else if ($("#CMND").val() == "") {
+                    showAlertSmall('Chưa nhập số chứng minh!!!')
+                } else {
+                    $.ajax({
+                        type: "get",
+                        url: "/Employee/SaveDataInDatabase",
+                        data: data,
+
+                        success: function (result) {
+                            showAlertSuccess(result.alert);
+                            setTimeout(function () {
+                                window.location.href = "/Admin/quan-ly-nhan-vien";
+                            }, 2000)
+                            $("#myModal").modal("hide");
+                        }
+                    })
+
+                }
+            })
+
+            //Show The Popup Modal For DeleteComfirmation
+            var DeleteRecord = function (MANV) {
+                $("#MANV").val(MANV);
+                $("#DeleteConfirmation").modal("show");
+            }
+            var ConfirmDelete = function () {
+                var MANV = $("#MANV").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Employee/DeleteRecord?id=" + MANV,
+                    success: function (result) {
+                        $("#DeleteConfirmation").modal("hide");
+                        $(".row_" + MANV).remove();
+                    }
+                })
+            }
+        </script>
+
